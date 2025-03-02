@@ -1,0 +1,106 @@
+@use "./variables" as *;
+@use "./typography" as *;
+
+
+@mixin tablet {
+    @media (min-width:48rem) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width:80rem) {
+        @content;
+    }
+}
+
+// Mixin for Font Styles
+@mixin font-style($size, $line-height, $weight: 400) {
+    font-size: $size;
+    line-height: $line-height;
+    font-weight: $weight;
+}
+
+// Desktop & Tablet Text Styles
+@mixin page-header {
+    @include font-style(2.0625rem, 2.75rem, 600); 
+}
+
+@mixin section-header {
+    @include font-style(0.75rem, 1.25rem, 600); 
+}
+
+@mixin subheader {
+    @include font-style(0.875rem, 1.375rem, 600); 
+}
+
+@mixin body-copy {
+    @include font-style(0.875rem, 1.375rem, 400); 
+}
+
+@mixin labels-buttons {
+    @include font-style(0.75rem, 1.25rem, 600); 
+}
+
+// Mobile Text Styles
+@mixin page-header-mobile {
+    @include font-style(1.5rem, 2rem, 600); 
+}
+
+@mixin section-header-mobile {
+    @include font-style(0.75rem, 1.25rem, 600); 
+}
+
+@mixin subheader-mobile {
+    @include font-style(0.8125rem, 1.125rem, 600); 
+}
+
+@mixin body-copy-mobile {
+    @include font-style(0.8125rem, 1.125rem, 400); 
+}
+
+@mixin labels-buttons-mobile {
+    @include font-style(0.7rem, 1.25rem, 300); 
+}
+
+// Flexbox Mixins
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-space-around {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+@mixin flex-space-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@mixin flex-space-evenly {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+@mixin loading-spinner{
+    width: 30px;
+    height: 30px;
+    margin: auto;
+    border: 4px dashed $jasmine; 
+    border-radius: 50%;
+    animation: rotate 5s linear infinite; 
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+  }
+}
