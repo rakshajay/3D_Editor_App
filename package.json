@@ -10,9 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "sass": "^1.85.1"
+    "@react-three/drei": "^10.0.3",
+    "@react-three/fiber": "^9.0.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sass": "^1.85.1",
+    "sweetalert2": "^11.17.2",
+    "three": "^0.174.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",
