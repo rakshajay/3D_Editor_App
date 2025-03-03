@@ -1,49 +1,42 @@
 import { Canvas } from "@react-three/fiber";
-import { useGLTF, Stage, PresentationControls } from "@react-three/drei";
+import {
+  OrbitControls,
+  useGLTF,
+  Stage,
+  PresentationControls,
+} from "@react-three/drei";
 import { useState, useEffect, Suspense } from "react";
-import Swal from "sweetalert2";
+import handleDrop from "./utils/handleDrop.js";
 import HierarchyTree from "./components/HierarchyTree/HierarchyTree";
 import "./App.css";
 
 function App() {
-  const [model, setModel] = useState(null);
   const [sceneChildren, setSceneChildren] = useState([]);
+  const [model, setModel] = useState(null);
 
-  function OnClickUpload(event) {
-    const file = event.target.files[0];
-    if (file && (file.name.endsWith(".glb") || file.name.endsWith(".gltf"))) {
-      const url = URL.createObjectURL(file);
-      setModel(url);
-    } else {
-      Swal.fire({
-        title: "Invalid file!",
-        text: "Please upload a .glb or .gltf file.",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
-    }
+  function handleDragOver(event) {
+    event.preventDefault();
   }
 
   function ModelViewer({ modelPath }) {
-    const { scene } = useGLTF(modelPath, true); // Enable caching for optimization
-
+    const { scene } = useGLTF(modelPath, true);
+    
     useEffect(() => {
       if (scene) {
         setSceneChildren(scene.children);
       }
     }, [scene]);
 
-    return <primitive object={scene} />;
+    const click = (e) => {
+      e.stopPropagation();
+      alert(`You clicked on ${e.object.name}`);
+    };
+
+    return <primitive object={scene} onPointerDown={click} />;
   }
 
   return (
     <div>
-      <input
-        type="file"
-        accept=".glb, .gltf"
-        onChange={OnClickUpload}
-        id="fileInput"
-      />
       <HierarchyTree sceneChildren={sceneChildren} />
       <div>
         <Canvas
@@ -51,6 +44,8 @@ function App() {
           shadows
           camera={{ fov: 45 }}
           style={{ position: "absolute" }}
+          onDrop={(event) => handleDrop(event, setModel)}
+          onDragOver={handleDragOver}
         >
           <color attach="background" args={["#101010"]} />
           <PresentationControls
@@ -67,6 +62,7 @@ function App() {
               )}
             </Stage>
           </PresentationControls>
+          <OrbitControls panSpeed={3} rotateSpeed={3} />
         </Canvas>
       </div>
     </div>
