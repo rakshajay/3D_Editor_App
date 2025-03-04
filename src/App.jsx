@@ -1,11 +1,7 @@
 import { Canvas } from "@react-three/fiber";
-import {
-  OrbitControls,
-  useGLTF,
-  Stage,
-  PresentationControls,
-} from "@react-three/drei";
-import { useState, useEffect, Suspense } from "react";
+import { OrbitControls, useGLTF, Stage, Grid, GizmoHelper, GizmoViewport, PivotControls } from "@react-three/drei";
+import { useState, useEffect, useRef, Suspense } from "react";
+import { Box3, Vector3 } from "three";
 import handleDrop from "./utils/handleDrop.js";
 import HierarchyTree from "./components/HierarchyTree/HierarchyTree";
 import "./App.css";
@@ -13,6 +9,8 @@ import "./App.css";
 function App() {
   const [sceneChildren, setSceneChildren] = useState([]);
   const [model, setModel] = useState(null);
+  const [pivotScale, setPivotScale] = useState(1);
+  const modelRef = useRef();
 
   function handleDragOver(event) {
     event.preventDefault();
@@ -20,19 +18,31 @@ function App() {
 
   function ModelViewer({ modelPath }) {
     const { scene } = useGLTF(modelPath, true);
-    
+
     useEffect(() => {
       if (scene) {
         setSceneChildren(scene.children);
       }
     }, [scene]);
 
-    const click = (e) => {
-      e.stopPropagation();
-      alert(`You clicked on ${e.object.name}`);
-    };
+    useEffect(() => {
+      if (scene) {
+        const box = new Box3().setFromObject(scene);
+        const size = new Vector3();
+        box.getSize(size);
+        
+        // PivotControls scale based on model size -set
+        const maxSize = Math.max(size.x, size.y, size.z);
+        setPivotScale(maxSize * 0.1); 
+      }
+    }, [scene]);
+  
 
-    return <primitive object={scene} onPointerDown={click} />;
+    return (
+      <PivotControls scale={pivotScale} lineWidth={2} depthTest={false}>
+      <primitive object={scene} ref={modelRef} />
+    </PivotControls>
+    );
   }
 
   return (
@@ -48,21 +58,22 @@ function App() {
           onDragOver={handleDragOver}
         >
           <color attach="background" args={["#101010"]} />
-          <PresentationControls
-            speed={1.5}
-            global
-            zoom={0.5}
-            polar={[-0.1, Math.PI / 4]}
-          >
-            <Stage environment={"sunset"}>
-              {model && (
-                <Suspense fallback={null}>
-                  <ModelViewer modelPath={model} />
-                </Suspense>
-              )}
-            </Stage>
-          </PresentationControls>
-          <OrbitControls panSpeed={3} rotateSpeed={3} />
+
+          <Stage environment={"sunset"}>
+            {model && (
+              <Suspense fallback={null}>
+                <ModelViewer modelPath={model} />
+              </Suspense>
+            )}
+          </Stage>
+
+          <Grid args={[1000, 1000]} sectionColor={"pink"} cellColor={"gray"} sectionSize={1000} fadeDistance={2000} />
+
+          <GizmoHelper alignment="bottom-right" margin={[100, 100]}>
+            <GizmoViewport labelColor="white" axisHeadScale={10} />
+          </GizmoHelper>
+
+          <OrbitControls panSpeed={1} rotateSpeed={1} />
         </Canvas>
       </div>
     </div>
