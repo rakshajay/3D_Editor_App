@@ -1,21 +1,24 @@
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Stage, Grid, GizmoHelper, GizmoViewport, PivotControls } from "@react-three/drei";
+import { OrbitControls, useGLTF, Stage, Grid, GizmoHelper, GizmoViewport, PivotControls, Outlines } from "@react-three/drei";
 import { useState, useEffect, useRef, Suspense } from "react";
-import { Box3, Vector3 } from "three";
-import { useControls } from "leva";
+import { Box3, Vector3, MeshStandardMaterial } from "three";
 import handleDrop from "./utils/handleDrop.js";
 import HierarchyTree from "./components/HierarchyTree/HierarchyTree";
 import "./App.css";
 
 function App() {
-  const [sceneChildren, setSceneChildren] = useState([]);
+  const [scene, setScene] = useState([]);
   const [model, setModel] = useState(null);
   const [pivotScale, setPivotScale] = useState(1);
   const [orbitEnabled, setOrbitEnabled] = useState(true);
-  const modelRef = useRef();
+  const [selected, setSelected] = useState(false);
 
   function handleDragOver(event) {
     event.preventDefault();
+  }
+
+  function handleSelect() {
+    setSelected(!selected);
   }
 
   function ModelViewer({ modelPath }) {
@@ -24,7 +27,7 @@ function App() {
 
     useEffect(() => {
       if (scene) {
-        setSceneChildren(scene.children);
+        setScene(scene);
       }
     }, [scene]);
 
@@ -34,35 +37,37 @@ function App() {
         const size = new Vector3();
         box.getSize(size);
 
-        // Dynamically adjust PivotControls scale
         const maxSize = Math.max(size.x, size.y, size.z);
         setPivotScale(maxSize * 0.1);
       }
     }, [scene]);
 
-    // Leva UI Controls (Position, Rotation, Scale)
-    const { position, rotation, scale } = useControls("Transform Controls", {
-      position: { value: [0, 0, 0], step: 0.1 },
-      rotation: { value: [0, 0, 0], step: 0.1 },
-      scale: { value: [1, 1, 1], step: 0.1, min: 0.1, max: 5 },
-    });
-
-    return (
+      return (
       <PivotControls
         scale={pivotScale}
         lineWidth={2}
         depthTest={false}
-        onDragStart={() => setOrbitEnabled(false)} // Disable OrbitControls
-        onDragEnd={() => setOrbitEnabled(true)} // Enable OrbitControls
+        onDragStart={() => setOrbitEnabled(false)}
+        onDragEnd={() => setOrbitEnabled(true)} 
       >
-        <primitive object={scene} ref={modelRef} position={position} rotation={rotation} scale={scale} />
+         <primitive
+        object={scene}
+        ref={modelRef}
+        onClick={handleSelect}
+        material={
+          selected
+            ? new MeshStandardMaterial({ color: "yellow", emissive: "yellow", emissiveIntensity: 0.5 })
+            : undefined
+        }
+      />
+      {selected && <Outlines color="yellow" width="20" />}
       </PivotControls>
     );
   }
 
   return (
     <div>
-      <HierarchyTree sceneChildren={sceneChildren} />
+      <HierarchyTree scene={scene} />
       <div>
         <Canvas
           dpr={[1, 2]}
