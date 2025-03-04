@@ -19,7 +19,7 @@ const TreeSceneGraph = ({ node, onNodeSelect }) => {
 
     setSelectedNode(node.reference);
 
-    onNodeSelect(node.reference.scale, node.reference.position, node.reference.rotation);
+    onNodeSelect(node.reference.scale, node.reference.position, node.reference.rotation, node.reference);
   };
 
   useEffect(() => {

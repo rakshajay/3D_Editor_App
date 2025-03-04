@@ -7,6 +7,7 @@ function HierarchyTree({ scene }) {
   const [scale, setScale] = useState(null);
   const [position, setPosition] = useState(null);
   const [rotation, setRotation] = useState(null);
+  const [selectedNode, setSelectedNode] = useState(null);
 
   useEffect(() => {
     if (!scene || !scene.children) return;
@@ -23,20 +24,28 @@ function HierarchyTree({ scene }) {
     setTreeData(scene.children.map(extractNodes));
   }, [scene]);
 
-  const handleNodeSelection = (newScale, newPosition, newRotation) => {
+  const handleNodeSelection = (newScale, newPosition, newRotation, selectedObject) => {
     setScale(newScale);
     setPosition(newPosition);
     setRotation(newRotation);
-  };
-  const handleTransformChange = (type, axis, value) => {
-    if (!selectedNode) return;
-    
-    selectedNode[type][axis] = value;
-    selectedNode.updateMatrixWorld(true); // Ensure transformations apply
-    setTreeData([...treeData]); // Force a re-render
+    setSelectedNode(selectedObject); // Ensure selected node is stored properly
   };
   
-
+  const handleTransformChange = (type, axis, value) => {
+    if (!selectedNode || !selectedNode[type]) return; // Ensure selected node exists
+  
+    // Update transformation directly on the Three.js object
+    selectedNode[type][axis] = value;
+  
+    // Ensure Three.js applies the update
+    if (typeof selectedNode.updateMatrixWorld === "function") {
+      selectedNode.updateMatrixWorld(true);
+    }
+  
+    // Do NOT call setSelectedNode({ ...selectedNode }) — it causes infinite re-renders
+  };
+  
+  
   return (
     <div>
       <h3>Hierarchy Tree</h3>
