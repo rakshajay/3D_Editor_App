@@ -66,7 +66,14 @@ function App() {
   }
 
   return (
-    <div className="canvas">             
+    <div className="canvas"> 
+      {/* Translucent Drag & Drop Text */}
+      {!model && (
+      <div className="canvas-drag-overlay">
+        Drag & Drop Files Here...
+      </div>
+    )}
+               
       <div className="canvas-tree"><HierarchyTree scene={scene} /></div>
       <div className="canvas-scene">
         <Canvas
