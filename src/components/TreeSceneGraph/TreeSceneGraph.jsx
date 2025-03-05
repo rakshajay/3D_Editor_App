@@ -6,22 +6,31 @@ const TreeSceneGraph = ({ node, onNodeSelect }) => {
   const [originalColor, setOriginalColor] = useState(null);
 
   const handleClick = (event) => {
-    event.stopPropagation(); // Prevent event bubbling
+    event.stopPropagation(); // avoid bubbling
 
-    if (!node.reference || !node.reference.isMesh || !node.reference.material) return;
+    if (!node.reference || !node.reference.isMesh || !node.reference.material)
+      return;
 
     if (!originalColor) {
       setOriginalColor(node.reference.material.color.getStyle());
     }
 
+    //selcted object highlight
     node.reference.material.color.set("#39FF14");
     node.reference.material.needsUpdate = true;
 
     setSelectedNode(node.reference);
-
-    onNodeSelect(node.reference.scale, node.reference.position, node.reference.rotation, node.reference);
+    onNodeSelect(
+      node.reference.scale,
+      node.reference.position,
+      node.reference.rotation,
+      node.reference.material.color,
+      node.reference.animation,
+      node.reference
+    );
   };
 
+  //selected object gets back its original color once clicked outside
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (selectedNode && !event.target.closest(".tree-node")) {
@@ -29,7 +38,6 @@ const TreeSceneGraph = ({ node, onNodeSelect }) => {
           selectedNode.material.color.set(originalColor);
           selectedNode.material.needsUpdate = true;
         }
-
         setSelectedNode(null);
         setOriginalColor(null);
       }
@@ -55,7 +63,11 @@ const TreeSceneGraph = ({ node, onNodeSelect }) => {
         {isOpen && (
           <div>
             {node.children.map((child) => (
-              <TreeSceneGraph key={child.id} node={child} onNodeSelect={onNodeSelect} />
+              <TreeSceneGraph
+                key={child.id}
+                node={child}
+                onNodeSelect={onNodeSelect} // passing sleected mesh values to pass it to TransControl
+              />
             ))}
           </div>
         )}

@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useControls } from "leva";
 
 const TransControls = ({ scale, position, rotation, onChange }) => {
+
+  //passing values to leva library -leva's useControls format
   const controls = useControls("Transform Controls", {
     scaleX: { value: scale?.x || 1, min: 0.1, max: 5, step: 0.1 },
     scaleY: { value: scale?.y || 1, min: 0.1, max: 5, step: 0.1 },
@@ -14,6 +16,7 @@ const TransControls = ({ scale, position, rotation, onChange }) => {
     rotZ: { value: rotation?.z || 0, min: -Math.PI, max: Math.PI, step: 0.1 },
   });
 
+  //sending data back to hierarchyTree to update the values on selected mesh
   useEffect(() => {
     if (onChange) {
       onChange("scale", "x", controls.scaleX);
@@ -28,7 +31,7 @@ const TransControls = ({ scale, position, rotation, onChange }) => {
     }
   }, [controls, onChange]);
 
-  return null; // Leva automatically provides the UI
+  return null; 
 };
 
 export default TransControls;
