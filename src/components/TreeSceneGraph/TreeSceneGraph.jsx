@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const TreeSceneGraph = ({ node, onNodeSelect }) => {
+const TreeSceneGraph = ({ node, onNodeSelect, searchQuery }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedNode, setSelectedNode] = useState(null);
   const [originalColor, setOriginalColor] = useState(null);
@@ -49,6 +49,24 @@ const TreeSceneGraph = ({ node, onNodeSelect }) => {
     };
   }, [selectedNode, originalColor]);
 
+  //show matching nodes and their parents
+  const matchesSearch = node.name
+    .toLowerCase()
+    .includes(searchQuery.toLowerCase());
+  const filteredChildren = node.children
+    .map((child) => ({
+      ...child,
+      children: child.children,
+    }))
+    .filter(
+      (child) =>
+        child.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        child.children.length > 0
+    );
+
+  // Hide rest of nodes
+  if (!matchesSearch && filteredChildren.length === 0) return null;
+
   return (
     <div>
       <div className="tree-node" style={{ marginLeft: "20px" }}>
@@ -62,13 +80,16 @@ const TreeSceneGraph = ({ node, onNodeSelect }) => {
         </div>
         {isOpen && (
           <div>
-            {node.children.map((child) => (
-              <TreeSceneGraph
-                key={child.id}
-                node={child}
-                onNodeSelect={onNodeSelect} // passing selected mesh values to pass it to TransControl
-              />
-            ))}
+            <div>
+              {filteredChildren.map((child) => (
+                <TreeSceneGraph
+                  key={child.id}
+                  node={child}
+                  searchQuery={searchQuery}
+                  onNodeSelect={onNodeSelect}
+                />
+              ))}
+            </div>
           </div>
         )}
       </div>
