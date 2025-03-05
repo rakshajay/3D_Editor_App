@@ -9,6 +9,7 @@ _[Check out the deployed app here!](https://threejs-editor-app.vercel.app/)
 ---
 
 #### **📌 Features**  
+-Drag and drop the 3d mdoel
 - View a hierarchical **3D Model- .gltf & .glb supported** 🏗️  
 - Click on objects to **select and highlight them** 🔦  
 - Modify **Position, Rotation, and Scale** using simple UI controls 🎰  
