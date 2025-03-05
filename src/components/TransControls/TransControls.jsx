@@ -3,6 +3,7 @@ import { useControls } from "leva";
 import Swal from "sweetalert2";
 
 const TransControls = ({ scale, position, rotation, onChange }) => {
+  console.log("scale", scale)
   const controls = useControls("Transform Controls", {
     scaleX: { value: scale?.x || 1, min: 0.1, max: 150, step: 0.1 },
     scaleY: { value: scale?.y || 1, min: 0.1, max: 150, step: 0.1 },

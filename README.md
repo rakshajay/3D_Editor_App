@@ -1,10 +1,10 @@
-### **🖥️ Simple 3D Viewer**  
+## **🖥️ Simple 3D Viewer**  
 _A fun way to explore and control 3D objects in a scene!_
 
 ![App Preview](./src/assets/images/App-ScreenShot.png)
 
 ---
-### 🔗 Live Demo  
+## 🔗 Live Demo  
 👉 [Check out the deployed app here!](https://threejs-editor-app.vercel.app/)
 ---
 

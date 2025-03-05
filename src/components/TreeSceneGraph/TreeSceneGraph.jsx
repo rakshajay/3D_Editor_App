@@ -24,8 +24,8 @@ const TreeSceneGraph = ({ node, onNodeSelect, searchQuery }) => {
       node.reference.scale,
       node.reference.position,
       node.reference.rotation,
-      node.reference.material.color,
-      node.reference.animation,
+      //node.reference.material.color,
+      //node.reference.animation,
       node.reference
     );
   };

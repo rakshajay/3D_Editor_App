@@ -35,15 +35,15 @@ function HierarchyTree({ scene }) {
     newScale,
     newPosition,
     newRotation,
-    newColor,
-    newAnimation,
+    //newColor,
+    //newAnimation,
     selectedObject
   ) => {
     setScale(newScale);
     setPosition(newPosition);
     setRotation(newRotation);
-    setColor(newColor);
-    setAnimation(newAnimation);
+    //setColor(newColor);
+    //setAnimation(newAnimation);
     setSelectedNode(selectedObject);
   };
 
@@ -55,6 +55,7 @@ function HierarchyTree({ scene }) {
     if (typeof selectedNode.updateMatrixWorld === "function") {
       selectedNode.updateMatrixWorld(true);
     }
+    
     // Don't setSelectedNode({ ...selectedNode }) — it causes infinite re-renders
   };
 
