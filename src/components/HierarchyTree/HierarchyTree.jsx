@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import TransControls from "../TransControls/TransControls";
 import TreeSceneGraph from "../TreeSceneGraph/TreeSceneGraph";
+import "./HierarchyTree.scss";
 
 function HierarchyTree({ scene }) {
   const [treeData, setTreeData] = useState([]);
   const [scale, setScale] = useState(null);
   const [position, setPosition] = useState(null);
   const [rotation, setRotation] = useState(null);
-  const [color, setColor] = useState(null);
-  const [animation, setAnimation] = useState(null);
+  //const [color, setColor] = useState(null);
+  //const [animation, setAnimation] = useState(null);
   const [selectedNode, setSelectedNode] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
   
 
   useEffect(() => {
@@ -60,12 +62,21 @@ function HierarchyTree({ scene }) {
     <div>
       Hierarchy Tree
       <div>
-        {/* maps each item of TreeSceneGraph to TreeData to be rendered */}
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
+      </div>
+      <div  className="scrollable-div">   
+             {/* maps each item of TreeSceneGraph to TreeData to be rendered */}
         {treeData.map((node) => (
           <TreeSceneGraph
             key={node.id}
             node={node}
             onNodeSelect={handleNodeSelection}
+            searchQuery={searchQuery}
           />
         ))}
       </div>
