@@ -1,43 +1,73 @@
 import { Canvas } from "@react-three/fiber";
-import {
-  OrbitControls,
-  useGLTF,
-  Stage,
-  PresentationControls,
-} from "@react-three/drei";
-import { useState, useEffect, Suspense } from "react";
+import { OrbitControls, useGLTF, Stage, Grid, GizmoHelper, GizmoViewport, PivotControls, Outlines } from "@react-three/drei";
+import { useState, useEffect, useRef, Suspense } from "react";
+import { Box3, Vector3, MeshStandardMaterial } from "three";
 import handleDrop from "./utils/handleDrop.js";
 import HierarchyTree from "./components/HierarchyTree/HierarchyTree";
 import "./App.css";
 
 function App() {
-  const [sceneChildren, setSceneChildren] = useState([]);
+  const [scene, setScene] = useState([]);
   const [model, setModel] = useState(null);
+  const [pivotScale, setPivotScale] = useState(1);
+  const [orbitEnabled, setOrbitEnabled] = useState(true);
+  const [selected, setSelected] = useState(false);
 
   function handleDragOver(event) {
     event.preventDefault();
   }
 
+  function handleSelect() {
+    setSelected(!selected);
+  }
+
   function ModelViewer({ modelPath }) {
     const { scene } = useGLTF(modelPath, true);
-    
+    const modelRef = useRef();
+
     useEffect(() => {
       if (scene) {
-        setSceneChildren(scene.children);
+        setScene(scene);
       }
     }, [scene]);
 
-    const click = (e) => {
-      e.stopPropagation();
-      alert(`You clicked on ${e.object.name}`);
-    };
+    useEffect(() => {
+      if (scene) {
+        const box = new Box3().setFromObject(scene);
+        const size = new Vector3();
+        box.getSize(size);
 
-    return <primitive object={scene} onPointerDown={click} />;
+        const maxSize = Math.max(size.x, size.y, size.z);
+        setPivotScale(maxSize * 0.1);
+      }
+    }, [scene]);
+
+      return (
+      <PivotControls
+        scale={pivotScale}
+        lineWidth={2}
+        depthTest={false}
+        onDragStart={() => setOrbitEnabled(false)}
+        onDragEnd={() => setOrbitEnabled(true)} 
+      >
+         <primitive
+        object={scene}
+        ref={modelRef}
+        onClick={handleSelect}
+        material={
+          selected
+            ? new MeshStandardMaterial({ color: "yellow", emissive: "yellow", emissiveIntensity: 0.5 })
+            : undefined
+        }
+      />
+      {selected && <Outlines color="yellow" width="20" />}
+      </PivotControls>
+    );
   }
 
   return (
     <div>
-      <HierarchyTree sceneChildren={sceneChildren} />
+      <HierarchyTree scene={scene} />
       <div>
         <Canvas
           dpr={[1, 2]}
@@ -48,21 +78,22 @@ function App() {
           onDragOver={handleDragOver}
         >
           <color attach="background" args={["#101010"]} />
-          <PresentationControls
-            speed={1.5}
-            global
-            zoom={0.5}
-            polar={[-0.1, Math.PI / 4]}
-          >
-            <Stage environment={"sunset"}>
-              {model && (
-                <Suspense fallback={null}>
-                  <ModelViewer modelPath={model} />
-                </Suspense>
-              )}
-            </Stage>
-          </PresentationControls>
-          <OrbitControls panSpeed={3} rotateSpeed={3} />
+
+          <Stage environment={"sunset"}>
+            {model && (
+              <Suspense fallback={null}>
+                <ModelViewer modelPath={model} />
+              </Suspense>
+            )}
+          </Stage>
+
+          <Grid args={[1000, 1000]} sectionColor={"pink"} cellColor={"gray"} sectionSize={1000} fadeDistance={2000} />
+
+          <GizmoHelper alignment="bottom-right" margin={[100, 100]}>
+            <GizmoViewport labelColor="white" axisHeadScale={1} />
+          </GizmoHelper>
+
+          <OrbitControls enabled={orbitEnabled} panSpeed={1} rotateSpeed={1} />
         </Canvas>
       </div>
     </div>
