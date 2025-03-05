@@ -1,0 +1,22 @@
+@use './styles/partials/variables' as *;
+@use './styles/partials/typography' as *;
+@use './styles/partials/mixins' as *;
+
+.canvas{
+    
+    &-tree {
+        position: fixed;
+        top: 0;
+        text-align: left;
+        width:40vw;
+        background-color: $vampire-black;
+        color: $jordy-blue;
+        z-index: 1;
+        border-radius: 1rem;
+        padding: 1rem;
+        h3,p{
+            @include labels-buttons-mobile;
+        }
+    }
+
+}
