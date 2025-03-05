@@ -1,29 +1,29 @@
-## **🖥️ Simple 3D Viewer**  
+### **🖥️ Simple 3D Viewer**  
 _A fun way to explore and control 3D objects in a scene!_
 
 ![App Preview](./src/assets/images/App-ScreenShot.png)
 
 ---
-## 🔗 Live Demo  
+### 🔗 Live Demo  
 👉 [Check out the deployed app here!](https://threejs-editor-app.vercel.app/)
 ---
 
-## **📌 Features**  
+### **📌 Features**  
 ✅ View a hierarchical **3D Model- .gltf & .glb supported** 🏗️  
 ✅ Click on objects to **select and highlight them** 🔦  
 ✅ Modify **Position, Rotation, and Scale** using simple UI controls 🎰  (color and animation controls are being built)
 ---
 
-## **🚀 Setup Instructions**  
-## **1️⃣ Clone the Repo**  
+### **🚀 Setup Instructions**  
+### **1️⃣ Clone the Repo**  
 ```bash
 git clone 
 cd to your folder
 ```
 
-## 🚀 Getting Started  
+### 🚀 Getting Started  
 
-## **1️⃣ Prerequisites**  
+### **1️⃣ Prerequisites**  
 Make sure you have the following installed:  
 - **Node.js** (Recommended: v18+) → [Download Here](https://nodejs.org/)  
 - **npm** (Comes with Node.js) → Check version:  
@@ -32,7 +32,7 @@ Make sure you have the following installed:
   npm -v
 
 
-## **2️⃣ Install Dependencies**  
+### **2️⃣ Install Dependencies**  
 ```bash
 npm install
 @react-three/drei
@@ -46,7 +46,7 @@ sweetalert2
 three
 ```
 
-## **3️⃣ Run the App**  
+### **3️⃣ Run the App**  
 ```bash
 npm run dev 
 ```
@@ -54,13 +54,13 @@ _Open in your browser at **http://localhost:????** 🎉_
 
 ---
 
-## **🔗 Deployed Demo**  
+### **🔗 Deployed Demo**  
 Check out the live version here: **[Demo Link](https://your-demo-link.com)** *(Replace this with your deployed URL!)*  
 
 ---
 
-## **🛠️ Technical Overview**  
-## **📂 Project Structure**  
+### **🛠️ Technical Overview**  
+### **📂 Project Structure**  
 ```
 /src
   ├── components
@@ -70,7 +70,7 @@ Check out the live version here: **[Demo Link](https://your-demo-link.com)** *(R
   ├── assets  // Images, textures, and 3D models
   ├── App.js  // Main entry point
 ```
-## **📂 UI Preview** 
+### **📂 UI Preview** 
 ![Hierarchy Tree](./src/assets/images/HierarchyTree.png)
 ![Transform controls](./src/assets/images/TransFormControls.png)
 
@@ -81,19 +81,19 @@ Check out the live version here: **[Demo Link](https://your-demo-link.com)** *(R
 
 ---
 
-## **🎬 Demo Video & GIFs** *(Add these later!)*  
+### **🎬 Demo Video & GIFs** *(Add these later!)*  
 🚀 **[Watch it in action!](#)** *(https://www.loom.com/share/96a8692c7ba342abaaf0e886e432fcce?sid=aff9ece7-efeb-4249-87c1-54526afc9524)*  
 
 ---
 
-## **💡 Fun Facts**  
+### **💡 Fun Facts**  
 🎨 Inspired by **Blender’s transformation panel**  
 🔥 Uses **React** for UI & **Three.js** for 3D rendering  
 🐱 The first test object was a **House Model**! (Okay, maybe it wasn’t... or was it? I'm obssed with Buildings😼)  
 
 ---
 
-## **👨‍💻 Working on**
+### **👨‍💻 Working on**
 🐱   (okey!!... I know this is just first version and needs many iterations for pixel perfect)
 🚀  -Color/Material controls
 🚀  -Animation Values are passed on to UI controls but needs UI data manipulation to be captured and updated in Model
