@@ -1,17 +1,17 @@
 ### **🖥️ Simple 3D Viewer**  
-_A fun way to explore and control 3D objects in a scene!_
+_An app explore and control 3D objects in a scene!_
 
 ![App Preview](./src/assets/images/App-ScreenShot.png)
 
 ---
 ### 🔗 Live Demo  
-👉 [Check out the deployed app here!](https://threejs-editor-app.vercel.app/)
+_[Check out the deployed app here!](https://threejs-editor-app.vercel.app/)
 ---
 
 ### **📌 Features**  
-✅ View a hierarchical **3D Model- .gltf & .glb supported** 🏗️  
-✅ Click on objects to **select and highlight them** 🔦  
-✅ Modify **Position, Rotation, and Scale** using simple UI controls 🎰  (color and animation controls are being built)
+_View a hierarchical **3D Model- .gltf & .glb supported** 🏗️  
+_Click on objects to **select and highlight them** 🔦  
+_Modify **Position, Rotation, and Scale** using simple UI controls 🎰  (color and animation controls are being built)
 ---
 
 ### **🚀 Setup Instructions**  
