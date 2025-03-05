@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, Suspense } from "react";
 import { Box3, Vector3, MeshStandardMaterial } from "three";
 import handleDrop from "./utils/handleDrop.js";
 import HierarchyTree from "./components/HierarchyTree/HierarchyTree";
-import "./App.css";
+import "./App.scss";
 
 function App() {
   const [scene, setScene] = useState([]);
@@ -42,33 +42,33 @@ function App() {
       }
     }, [scene]);
 
-      return (
+    return (
       <PivotControls
         scale={pivotScale}
         lineWidth={2}
         depthTest={false}
         onDragStart={() => setOrbitEnabled(false)}
-        onDragEnd={() => setOrbitEnabled(true)} 
+        onDragEnd={() => setOrbitEnabled(true)}
       >
-         <primitive
-        object={scene}
-        ref={modelRef}
-        onClick={handleSelect}
-        material={
-          selected
-            ? new MeshStandardMaterial({ color: "yellow", emissive: "yellow", emissiveIntensity: 0.5 })
-            : undefined
-        }
-      />
-      {selected && <Outlines color="yellow" width="20" />}
+        <primitive
+          object={scene}
+          ref={modelRef}
+          onClick={handleSelect}
+          material={
+            selected
+              ? new MeshStandardMaterial({ color: "yellow", emissive: "yellow", emissiveIntensity: 0.5 })
+              : undefined
+          }
+        />
+        {selected && <Outlines color="yellow" width="20" />}
       </PivotControls>
     );
   }
 
   return (
-    <div>
-      <HierarchyTree scene={scene} />
-      <div>
+    <div className="canvas">             
+      <div className="canvas-tree"><HierarchyTree scene={scene} /></div>
+      <div className="canvas-scene">
         <Canvas
           dpr={[1, 2]}
           shadows

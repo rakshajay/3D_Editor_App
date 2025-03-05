@@ -10,6 +10,7 @@ function HierarchyTree({ scene }) {
   const [color, setColor] = useState(null);
   const [animation, setAnimation] = useState(null);
   const [selectedNode, setSelectedNode] = useState(null);
+  
 
   useEffect(() => {
     if (!scene || !scene.children) return;
@@ -57,7 +58,7 @@ function HierarchyTree({ scene }) {
 
   return (
     <div>
-      <h3>Hierarchy Tree</h3>
+      Hierarchy Tree
       <div>
         {/* maps each item of TreeSceneGraph to TreeData to be rendered */}
         {treeData.map((node) => (
@@ -74,6 +75,7 @@ function HierarchyTree({ scene }) {
           position={position}
           rotation={rotation}
           onChange={handleTransformChange}
+          
         />
       </div>
     </div>

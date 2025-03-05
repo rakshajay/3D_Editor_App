@@ -66,7 +66,7 @@ const TreeSceneGraph = ({ node, onNodeSelect }) => {
               <TreeSceneGraph
                 key={child.id}
                 node={child}
-                onNodeSelect={onNodeSelect} // passing sleected mesh values to pass it to TransControl
+                onNodeSelect={onNodeSelect} // passing selected mesh values to pass it to TransControl
               />
             ))}
           </div>
