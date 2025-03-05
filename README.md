@@ -1,8 +1,11 @@
 ### **🖥️ Simple 3D Viewer**  
 _A fun way to explore and control 3D objects in a scene!_
 
-![App Preview](./your-image-here.png)
+![App Preview](./src/assets/images/App-ScreenShot.png)
 
+---
+### 🔗 Live Demo  
+👉 [Check out the deployed app here!](https://threejs-editor-app.vercel.app/)
 ---
 
 ## **📌 Features**  
@@ -12,7 +15,7 @@ _A fun way to explore and control 3D objects in a scene!_
 ---
 
 ## **🚀 Setup Instructions**  
-### **1️⃣ Clone the Repo**  
+## **1️⃣ Clone the Repo**  
 ```bash
 git clone 
 cd to your folder
@@ -20,7 +23,7 @@ cd to your folder
 
 ## 🚀 Getting Started  
 
-### **1️⃣ Prerequisites**  
+## **1️⃣ Prerequisites**  
 Make sure you have the following installed:  
 - **Node.js** (Recommended: v18+) → [Download Here](https://nodejs.org/)  
 - **npm** (Comes with Node.js) → Check version:  
@@ -29,7 +32,7 @@ Make sure you have the following installed:
   npm -v
 
 
-### **2️⃣ Install Dependencies**  
+## **2️⃣ Install Dependencies**  
 ```bash
 npm install
 @react-three/drei
@@ -43,7 +46,7 @@ sweetalert2
 three
 ```
 
-### **3️⃣ Run the App**  
+## **3️⃣ Run the App**  
 ```bash
 npm run dev 
 ```
@@ -57,7 +60,7 @@ Check out the live version here: **[Demo Link](https://your-demo-link.com)** *(R
 ---
 
 ## **🛠️ Technical Overview**  
-### **📂 Project Structure**  
+## **📂 Project Structure**  
 ```
 /src
   ├── components
@@ -67,6 +70,9 @@ Check out the live version here: **[Demo Link](https://your-demo-link.com)** *(R
   ├── assets  // Images, textures, and 3D models
   ├── App.js  // Main entry point
 ```
+## **📂 UI Preview** 
+![Hierarchy Tree](./src/assets/images/HierarchyTree.png)
+![Transform controls](./src/assets/images/TransFormControls.png)
 
 ### **🎮 How It Works**  
 1️⃣ `HierarchyTree.jsx` grabs the 3D scene and builds a structured tree.  
@@ -76,7 +82,7 @@ Check out the live version here: **[Demo Link](https://your-demo-link.com)** *(R
 ---
 
 ## **🎬 Demo Video & GIFs** *(Add these later!)*  
-🚀 **[Watch it in action!](#)** *(Add a YouTube/video link!)*  
+🚀 **[Watch it in action!](#)** *(https://www.loom.com/share/96a8692c7ba342abaaf0e886e432fcce?sid=aff9ece7-efeb-4249-87c1-54526afc9524)*  
 
 ---
 
@@ -88,9 +94,11 @@ Check out the live version here: **[Demo Link](https://your-demo-link.com)** *(R
 ---
 
 ## **👨‍💻 Working on**
-   (okey!!... I know this is just first version and needs many iterations for pixel perfect)
+🐱   (okey!!... I know this is just first version and needs many iterations for pixel perfect)
 🚀  -Color/Material controls
 🚀  -Animation Values are passed on to UI controls but needs UI data manipulation to be captured and updated in Model
 🚀  -Reset button for TrasformControls UI
 🚀  -Need more finetuning in Model transform from controls
+
+---
 
