@@ -58,7 +58,7 @@ _Open in your browser at **http://localhost:????** 🎉_
 ---
 
 ### **🔗 Deployed Demo**  
-Check out the live version here: **[Demo Link]([https://your-demo-link.com](https://threejs-editor-app.vercel.app/))**   
+Check out the live version here: [Demo Link]([https://your-demo-link.com](https://threejs-editor-app.vercel.app/)) 
 
 ---
 
